@@ -1,0 +1,22 @@
+
+		
+<div  class="col-md-12" >
+	<div class="col-md-6">
+		<input type="search" name="search" class="form-control" (click)="searchFood()" [(ngModel)] ="search" placeholder="search by food">	
+	</div>
+	<br><br>
+	<div class="col-md-6" >
+		<h3>{{timing_message}}</h3>
+	</div>
+</div>
+
+<div  class="col-md-12">
+<hr>
+	<div class="col-md-8">
+		<app-fooditem *ngFor="let f of food|filter:search:'name':'type'; let i=index; " [food]="f" [index]="f._id">
+		</app-fooditem>
+  </div>
+ </div>
+
+
+

@@ -1,0 +1,94 @@
+
+
+<div class="col-xs-12">
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8" *ngIf="!loginMode">
+		<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+		<form #ngForm (ngSubmit)="register(reg)" #reg="ngForm">
+			<div class="form-group">
+				<label>UserName  :</label>
+				<input type="text" class="form-control"  name="username" #username="ngModel" ngModel required>
+				<span *ngIf="!username.valid&&username.touched" class="help-block" >please enter the username</span>
+			</div>
+			<div class="form-group">
+				<label>Password  :</label>
+				<input type="password" class="form-control" #userpassword="ngModel" name="userpassword" ngModel required>
+				<span *ngIf="!userpassword.valid&&userpassword.touched" class="help-block" >please enter the userpassword</span>
+			</div>
+			<div class="form-group">
+				<label>Address  :</label>
+				<textarea Class="form-control" name="address" #address="ngModel" ngModel required></textarea>
+				<span *ngIf="!address.valid&&address.touched" class="help-block" >please enter the userAddress</span>
+			</div>
+			<div class="form-group">
+				<label>EmailId  :</label>
+				<input type="email" class="form-control" name="userEmail" #userEmail="ngModel" ngModel required>
+				<span *ngIf="!userEmail.valid&&userEmail.touched" class="help-block" >please the valid email address</span>
+			</div>
+			<div class="form-group">
+				<label>Ph.no  :</label>
+				<input type="number" [maxlength]="10" class="form-control" #phone="ngModel" name="phone" ngModel required>
+				<span *ngIf="!phone.valid&&phone.touched" class="help-block">Enter the valid mobile number</span>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-success" [disabled]="!reg.valid" >Register</button>
+				<button type="button" class="btn btn-danger" (click)="loginMode=!loginMode;error=null;" >cancel</button>
+			</div>
+		</form>	
+	</div>
+	<div class="col-xs-8"  *ngIf="loginMode">
+		<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+		<loader *ngIf="loading"></loader>
+		<form  (ngSubmit)="login(log)" #log="ngForm">
+			<div class="form-group">
+				<label>EmailId  :</label>
+				<input type="email" class="form-control" name="userEmail"
+				 #userEmail="ngModel" ngModel required>
+				<span *ngIf="!userEmail.valid&&userEmail.touched" class="help-block" >please the valid email address</span>
+			</div>
+			<div class="form-group">
+				<label>Password  :</label>
+				<input type="password" class="form-control" #userpassword="ngModel" name="userpassword" ngModel required>
+				<span *ngIf="!userpassword.valid&&userpassword.touched" class="help-block" >please enter the userpassword</span>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-success" [disabled]="!log.valid" >login</button>
+			</div>
+			<div>If you are new user,Create a new account 
+				<button type="button" class="btn btn-primary" (click)="loginMode=!loginMode;
+				error=null;">Create a new account</button></div>
+			<a [hidden]="!userEmail.valid||forget" (click)="sendOtp(userEmail)">ForgetPassword?</a>
+		</form>
+		
+		<form [hidden]="forgetPwd">
+			<button class="btn">Enter Otp: </button>
+			<input type="text" name="otp" class="form-control" #otp="ngModel" ngModel required>
+			<span *ngIf="!otp.valid&&otp.touched" class="help-block" >please enter the otp</span>
+			<button class="btn btn-success" type="button" [disabled]="!otp.valid&&resend" (click)="submitOtp(otp)">{{otpvalue}}</button>{{timeLeft}} s
+		</form>
+			
+		<div>
+			<form [hidden]="cnf" (ngSubmit)="confirmPwd(forgotten)" #forgotten="ngForm">
+				<div class="form-group">
+					<label>New Password  :</label>
+					<input type="password" class="form-control" #newpassword="ngModel" name="newpassword" ngModel required>
+					<span *ngIf="!newpassword.valid&&newpassword.touched" class="help-block" >please enter the newpassword</span>
+				</div>
+				<div class="form-group">
+					<label>Confirm Password  :</label>
+					<input type="password" class="form-control" #cnfpassword="ngModel" name="cnfpassword" ngModel required>
+					<span *ngIf="!cnfpassword.valid&&cnfpassword.touched" class="help-block" >please enter the confirmpassword</span>
+					<span *ngIf="cnfpassword.value!=newpassword.value" class="help-block" >Both password should be same</span>
+					<span *ngIf="cnfpassword.value==newpassword.value&&newpassword.valid&&cnfpassword.valid" class="help-block" >Password Correct!!!</span>
+				</div>
+				<button class="btn btn-success" [disabled]="!forgotten.valid||cnfpassword.value!=newpassword.value" >submit</button>
+			</form>
+		</div>
+	</div>
+	
+</div>
+
+
+
+  
+

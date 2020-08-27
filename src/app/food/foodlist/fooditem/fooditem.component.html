@@ -1,0 +1,19 @@
+
+<a 
+   class="list-group-item clearfix" >
+  <div class="pull-left">
+    <h4 class="list-group-item-heading">{{ food.name }}</h4>
+    <p class="list-group-item-text">{{ food.description}}</p>
+    <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="order()">Order Now! | Add To Cart!</button></p>
+    <span>Price:Rs{{food.amount}}</span>
+  </div>
+  <span class="pull-right">
+        <img
+          [src]="food.image"
+          alt="{{ food.name }}"
+          class="img-responsive"
+          style="max-height: 50px;">
+  </span>
+
+</a>
+

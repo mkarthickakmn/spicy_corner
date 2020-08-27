@@ -1,0 +1,62 @@
+<!-- <div class="backdrop"></div>
+<div class="alert-box">
+  <p>{{ message }}</p>
+  <div class="alert-box-actions">
+    <button class="btn btn-primary" (click)="onClose()">Close</button>
+  </div>
+</div>
+ -->
+
+ <div class="container">
+  <!-- Trigger the modal with a button -->
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Welcome to Spicy COrner</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-xs-12">
+           <img
+            [src]="food.image"
+            alt={{food.name}}
+            class="img-responsive"
+            style="max-height: 300px; margin:0 auto">
+         </div>
+          <div class="row">
+            <div class="col-xs-5">
+              <h1>{{ food.name }}</h1>
+            </div>
+            <div class="col-xs-7">
+              <h1>Rs.{{ product }}</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              {{ food.description }}
+            </div>
+          </div>
+          <div *ngIf="!foodavailable" class="text-center" style="color:red">
+            <span>only {{quantity}} items are available</span></div>      
+        </div>
+        <div class="row text-center">
+            <div class="col-xs-12">
+
+              Quantity:
+              <button class="btn btn-default" (click)="decrement()">-</button>
+              {{quantity}}
+              <button class="btn btn-default" (click)="increment()">+</button>
+            </div>     
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addToCart()">Add to Cart</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="submit()">Go To Order</button>
+        </div>
+      </div> 
+    </div>
+  </div>
+  
+</div>

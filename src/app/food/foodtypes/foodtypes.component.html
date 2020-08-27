@@ -1,0 +1,9 @@
+
+<div class="sidebar">
+	<div *ngFor="let t of type; let i=index;">
+		  <a [ngClass]="{active:(t.s_time<=time&&time<=t.e_time&&!click)||(i==no&&click)}" style="cursor: pointer;" 
+		  (click)="foodType(t.type,i)">{{t.type}}
+		  <span style="float:right">({{count[i]}})</span></a>
+  </div>
+</div>
+

@@ -1,0 +1,30 @@
+
+<nav class="navbar navbar-default fixed-top" style="z-index:2">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Spicy COrner</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="nav-item "  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" >
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" >
+        <a class="nav-link"  routerLink="/food" (click)="serve()">Ready to Serve</a>
+      </li>
+      <li class="nav-item " routerLinkActive="active" >
+        <a class="nav-link"  routerLink="/order" (click)="orders()" >Your Orders</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" routerLink="/contact">Contact Suppot</a>
+      </li> -->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+       <li class="nav-item">
+          <a>{{user}}</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link" routerLink="user" (click)="logOut()">{{log}}</a>
+        </li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,40 @@
+
+	<div class="col-xs-12">
+		<div class="col-xs-2"></div>
+		<div class="col-xs-8">
+			<form [formGroup]="addForm" (ngSubmit)="submit()">
+				<div class="form-group">
+					<label>Food name: </label>
+					<input type="text" formControlName="name" class="form-control" name="name">
+				</div>
+				<div class="form-group">
+					<label>Image: </label>
+					<!-- <input type="file" formControlName="img" (change)="changeListener($event)" class="form-control" name="img"> -->
+					<input type="text"  class="form-control" name="img" formControlName="image">
+				</div>
+				<div class="form-group">
+					<label>Category: </label>
+					<select class="form-control" formControlName="timings_id" name="category">
+						<option value=1>Breakfast</option>
+						<option value=2>Lunch</option>
+						<option value=3>Snacks</option>
+						<option value=4>Dinner</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Price: </label>
+					<input type="number" class="form-control" formControlName="amount" name="price">
+				</div>
+				<div class="form-group">
+					<label>Quantity: </label>
+					<input type="text" class="form-control" formControlName="quantity" name="quantity">
+				</div>
+				<div class="form-group">
+					<label>Description: </label>
+					<input type="textarea" class="form-control" formControlName="description" name="desc">
+				</div>
+				<button type="submit" class="btn btn-success">Add</button>
+				<div id="result"></div>
+			</form>
+		</div>
+	</div>

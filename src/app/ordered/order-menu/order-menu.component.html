@@ -1,0 +1,9 @@
+
+<div class="sidebar">
+	<div *ngFor="let menu of orderMenu; let i=index;">
+		  <a [ngClass]="{active:(i==0&&!click)||(i==no&&click)}" 
+		  style="cursor: pointer;" (click)="order(i,menu)">{{menu}}
+		  <span  style="float:right">({{count[i]}})</span></a>
+  </div>
+</div>
+

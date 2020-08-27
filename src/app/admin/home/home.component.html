@@ -1,0 +1,22 @@
+<div class="container">
+	<div class="col-xs-12">
+		<div class="table-responsive">
+			<table class="table table-striped" >
+				<thead>
+					<th>User name</th>
+					<th>User Email</th>
+					<th>Phone</th>
+					<th>Address</th>
+				</thead>
+				<tbody>
+					<tr *ngFor="let user of users; let i=index;" >
+						<td><label>{{user.username}}</label></td>
+						<td><label>{{user.userEmail}}</label></td>
+						<td><label>{{user.phone}}</label></td>
+						<td><label>{{user.address}}</label></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+	</div>
+</div>

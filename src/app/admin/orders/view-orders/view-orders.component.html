@@ -1,0 +1,31 @@
+<br><br>
+<div class="container">
+		<div class="col-xs-12 table-responsive">
+				<table class="table " style="padding: 2% ;">
+					<thead style="background-color: green;color:white">
+						<th>Username</th>
+						<th>UserEmail</th>
+						<th>Address</th>
+						<th>Phone number</th>
+						<th>Ordered Items</th>
+						<th>Total price</th>
+						<th>PayMethod</th>
+						<th>option</th>
+					</thead>
+				 
+					<tr *ngFor="let order of orders; let i=index; " >
+						<td>{{order.user_id.username}}</td>
+						<td>{{order.user_id.userEmail}}</td>
+						<td>{{order.user_id.address}}</td>
+						<td>{{order.user_id.phone}}</td>
+						<td>{{order.item}}</td>
+						<td>{{order.price}}</td>
+						<td>{{order.payMethod}}</td>
+						<td><button class="btn btn-success" (click)="setToDeliver(order._id,order.user_id,order.orders)">set to deliver</button></td>
+					</tr>
+					<tr *ngIf="noOrders"> 
+						<td colspan="8"><h4  style="text-align: center;">No orders found!!!</h4></td>
+					</tr>
+				</table>	
+		</div>
+</div>

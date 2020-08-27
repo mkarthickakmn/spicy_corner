@@ -1,0 +1,37 @@
+    
+  <h1 class="text-center">Welcome to the SpicyCOrner</h1>
+  <!-- <loader></loader>   --> 
+  <div *ngIf="food.length>0;else info">
+    <h3 class="text-center" *ngIf="food.length>0">{{food[0].timings.description}}</h3>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel"  style="max-width: 800px; margin: auto;">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" *ngFor="let x of food;let i = index" 
+            attr.data-slide-to="{{i}}" ngClass="i == 0 ? 'active' : ''"></li> 
+       </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" >
+            <div *ngFor="let j of food; let k = index" [ngClass]="k == 0 ? 'item active' : 'item'">
+                <img src={{j.image}} alt="Event Image" style="width: 100%">
+                <div class="carousel-caption">
+                <h2>{{j.name}}</h2>
+                <h4>{{j.description}}</h4>
+              </div>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+   </div> 
+   <ng-template #info>
+       <h3 class="text-center" style="margin-top: 100px;">{{message}}</h3>
+   </ng-template>
+    <!--  <div class='pm-button'><a href='https://www.payumoney.com/paybypayumoney/#/FBD31B1F7D9B048242708CF1D393311F'><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/21.png' /></a></div> --> 

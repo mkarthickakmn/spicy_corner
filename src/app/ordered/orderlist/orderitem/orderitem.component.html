@@ -1,0 +1,20 @@
+<div>  
+  <a 
+     class="list-group-item clearfix" >
+    <div class="pull-left">
+      <h4 class="list-group-item-heading">{{ order.food.name }} x {{order.order_quantity}}</h4>
+      <p class="list-group-item-text">{{ order.food.description}}</p>
+      <span>Price:Rs{{(order.food.amount*order.order_quantity)}}</span>
+    </div>
+    <span class="pull-right">
+      <div *ngIf="isDelivered" style="background-color: green;color:white;">delivered</div>
+          <img
+            [src]="order.food.image"
+            alt="{{ order.food.name }}"
+            class="img-responsive"
+            style="max-height: 50px;">
+    </span>
+
+  </a>
+</div>
+
