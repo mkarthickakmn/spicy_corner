@@ -19,7 +19,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
    return this.http
       .post<Food[]>(
-        'http://localhost:3000/food',{}
+        '/food',{}
         ).pipe(tap(data=>{
           this.food.setFood(data);
         }))
@@ -32,7 +32,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
       {
          return this.http
             .post<Order[]>(
-              'http://localhost:3000/insertNewOrders',
+              '/insertNewOrders',
               {id:food._id,
                quantity:q,
                status:menu,
@@ -48,7 +48,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
       {
          return this.http
             .post<Order[]>(
-              'http://localhost:3000/updateNewOrders',
+              '/updateNewOrders',
               {id:food._id,
                quantity:q,
                status:menu,
@@ -64,7 +64,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
    return this.http
           .post<Order[]>(
-            'http://localhost:3000/insertCartOrders',
+            '/insertCartOrders',
             {
            user_id:this.user.getUserId(),
          id:food._id,
@@ -78,7 +78,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<Order[]>(
-            'http://localhost:3000/getOrders',{
+            '/getOrders',{
               user_id:this.user.getUserId()
             }
           ).pipe(tap(responseData=>{
@@ -91,7 +91,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<string>(
-            'http://localhost:3000/moveOrders',{
+            '/moveOrders',{
               id:id
             }
           )
@@ -102,7 +102,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<Order[]>(
-            'http://localhost:3000/getOrderByType',{
+            '/getOrderByType',{
               menu:menu,
               id:this.user.getUserId()
             }
@@ -113,7 +113,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
        return this.http
           .post<Order[]>(
-            'http://localhost:3000/updateQuantity',{
+            '/updateQuantity',{
               quantity:quantity,
               id:id
             }
@@ -128,7 +128,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<Order[]>(
-            'http://localhost:3000/delete_order',{
+            '/delete_order',{
 
               id:id
             }
@@ -139,7 +139,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<any>(
-            'http://localhost:3000/pay',{
+            '/pay',{
               id:this.user.getUserId(),
               user:user,
               price:price,
@@ -153,7 +153,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<any>(
-            'http://localhost:3000/setToOrdered',{
+            '/setToOrdered',{
               orders:orders,
               user_id:this.user.getUserId()
             }
@@ -164,7 +164,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<any>(
-            'http://localhost:3000/cancel',{
+            '/cancel',{
               orders:orders
             }
           )
@@ -174,7 +174,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<any>(
-            'http://localhost:3000/saveAddress',{
+            '/saveAddress',{
               form:form,
               email:email
             }

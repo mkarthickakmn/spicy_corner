@@ -50,7 +50,7 @@ export class UserService
 	login(user:User)
 	{
 
-		return this.http.post<User>("http://localhost:3000/login",
+		return this.http.post<User>("/login",
 			{
 				user:user
 			}).
@@ -103,7 +103,7 @@ export class UserService
 
 	reg(user:User)
 	{
-		return this.http.post<User>("http://localhost:3000/register",
+		return this.http.post<User>("/register",
 			{
 				user:user
 			}).
@@ -112,21 +112,21 @@ export class UserService
 
 	sendOtp(email)
 	{
-		return this.http.post<any>("http://localhost:3000/sendOtp",{
+		return this.http.post<any>("/sendOtp",{
 			email:email
 		}).pipe(catchError(this.handleError));
 	}
 
 	submitOtp(otp)
 	{
-		return this.http.post<any>("http://localhost:3000/subOtp",{
+		return this.http.post<any>("/subOtp",{
 			otp:otp
 		}).pipe(catchError(this.handleError));
 	}
 
 	updatePwd(email,pwd)
 	{
-		return this.http.post<any>("http://localhost:3000/updatePwd",{
+		return this.http.post<any>("/updatePwd",{
 			email:email,
 			pwd:pwd
 		})

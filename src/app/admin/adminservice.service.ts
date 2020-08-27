@@ -20,7 +20,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
    return this.http
       .post<any>(
-        'http://localhost:3000/addfood',
+        '/addfood',
           {
               food:food
           }
@@ -31,7 +31,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
     return this.http
       .post<any>(
-        'http://localhost:3000/getfood',{}
+        '/getfood',{}
         ).pipe(
           tap(data=>{
               this.adminFood.setFood(data);
@@ -43,7 +43,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
    return this.http
       .post<any>(
-        'http://localhost:3000/updatefood',
+        '/updatefood',
           {
               food:food,
               image_change:image_change
@@ -55,7 +55,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
    return this.http
       .post<any>(
-        'http://localhost:3000/delfood',
+        '/delfood',
           {
               food:food
           }
@@ -66,7 +66,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
      return this.http
       .post<any>(
-        'http://localhost:3000/search_category',
+        '/search_category',
           {
               category:category
           }
@@ -77,7 +77,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
      return this.http
       .post<any>(
-        'http://localhost:3000/view_Orders',{}
+        '/view_Orders',{}
         ).pipe(tap(data=>{
           this.adminFood.setOrders(data);
         }))
@@ -87,7 +87,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
      return this.http
       .post<any>(
-        'http://localhost:3000/pay_status',
+        '/pay_status',
           {
               id:id,
               user:user,
@@ -100,7 +100,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
    return this.http
       .post<any>(
-        'http://localhost:3000/view_delivered',{}
+        '/view_delivered',{}
         ) 
   }
 
@@ -108,7 +108,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
     return this.http
       .post<any>(
-        'http://localhost:3000/getUser',{}
+        '/getUser',{}
         ) 
   }
   
