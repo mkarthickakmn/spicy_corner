@@ -25,21 +25,24 @@ export class ViewFoodComponent implements OnInit {
 
 image:any='';
   
-  changeListener($event,id) : void {
-  this.readThis($event.target,id);
+  changeListener($event,id,i,food) : void {
+
+   if( (<HTMLInputElement>document.getElementById("img1_id"+i)).value.length>0)
+   (<HTMLInputElement>document.getElementById("img2_id"+i)).disabled=true;
+   else
+    {
+      (<HTMLInputElement>document.getElementById("img2_id"+i)).disabled=false;
+      this.image="";
+    }
+  this.readThis($event.target,id,food);
 }
 
-readThis(inputValue: any,id:number): void {
+readThis(inputValue: any,id:number,food:any): void {
   var file:File = inputValue.files[0];
   var myReader:FileReader = new FileReader();
   myReader.readAsDataURL(file);
   myReader.onloadend = (e) => {
     this.image = myReader.result;
-    console.log(this.image)
-    if(this.image.length>0)
-    {
-      this.image_change=1;
-    }
     this.adminFood.getImageById(id,this.image);
     this.food=this.adminFood.getFood();
 
@@ -47,11 +50,21 @@ readThis(inputValue: any,id:number): void {
 
 }
 
+ch(i,food)
+ {
+
+   if( (<HTMLInputElement>document.getElementById("img2_id"+i)).value.length>0)
+     {
+       (<HTMLInputElement>document.getElementById("img1_id"+i)).disabled=true;
+       food.image=(<HTMLInputElement>document.getElementById("img2_id"+i)).value;
+     }
+   else
+    (<HTMLInputElement>document.getElementById("img1_id"+i)).disabled=false;
+
+ }
 
   update(food:any)
   {
-    // food.image=food.image.slice(23);
-    console.log(food);
     this.admin.updateFood(food,this.image_change).subscribe(response=>{
   		alert('data updated successfully!!!');
   	});

@@ -37,7 +37,6 @@ export class HeaderComponent implements OnInit {
   {
     if(this.log=="logout")
     {
-      console.log("hlo");
       // this.chatservice.disconnected(this.userService.getUser()[0].userEmail);
       this.user="";
       this.userService.logOut(); 

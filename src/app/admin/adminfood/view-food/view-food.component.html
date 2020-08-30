@@ -34,8 +34,11 @@
 				<tr *ngFor="let food of foods|filter:search:'name'; let i=index;" >
 					<td style="padding:10px;"><input type="text"  name="name" [(ngModel)]="food.name"></td>
 					<td><img [src]="food.image" style="max-width :150px;">
-						<input type="file" (change)="changeListener($event,food.food_id)" name="file">
+						<input type="file" id ="{{ 'img1_id' + i }}" (change)="changeListener($event,food._id,i)" name="file">
+						<p style="text-align: center">or</p>
+						<input type="text"  placeholder="image url address" (change)="ch(i,food)"  id ="{{ 'img2_id' + i }}" class="form-control"name="img2">
 					</td>
+					
 					<td style="padding:10px;">
 						<select  [(ngModel)]="food.timings_id" name="category">
 							<option value=0 >Select category</option>

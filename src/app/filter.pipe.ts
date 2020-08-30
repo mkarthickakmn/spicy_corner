@@ -1,9 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform ,Injectable} from '@angular/core';
 import{FoodTimings} from './food/foodtimings.module';
 import{Food} from './food/food.module';
 @Pipe({
   name: 'filter'
 })
+// @Injectable({providedIn:'root'})
+
 export class FilterPipe implements PipeTransform {
 
   transform(value: any, search:string,name:string,type?:string): any {

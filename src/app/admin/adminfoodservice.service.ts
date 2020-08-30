@@ -19,7 +19,6 @@ export class AdminFoodService
 	getFoodDetail(orders:any)
 	{
 		let foodlist=[],i=0,name='';
-		console.log(orders);
 		let food:any=[];
 		for(let x in orders)
 		{
@@ -35,7 +34,6 @@ export class AdminFoodService
 			i++;
 		
 		}
-		console.log(foodlist);
 		return foodlist;
 	}
 
@@ -69,7 +67,7 @@ export class AdminFoodService
 	{
 		for(let x in this.food)
 		{
-			if(this.food[x].food_id==id)
+			if(this.food[x]._id==id)
 			{
 				this.food[x].image=img;
 			}
@@ -91,7 +89,6 @@ export class AdminFoodService
 			}
 			order[x].item=order[x].item.substr(0,order[x].item.length-1);
 		}
-		console.log(order);
 		return order;
 	}
 }

@@ -19,7 +19,7 @@ export class OrderlistComponent implements OnInit,OnDestroy {
   id:number;
   total:number=null;
   subscription:Subscription;
-  noOrders:boolean=false;
+  noOrders:boolean=true;
   menu:string;
   ngOnInit(): void 
   {
@@ -46,7 +46,7 @@ export class OrderlistComponent implements OnInit,OnDestroy {
                   if(this.foodOrder.length>0)
                    {
                       this.total=this.orderservice.getTotal("New Orders",this.foodOrder);
-                     
+                      this.noOrders=false;
                    }
                    else
                    {

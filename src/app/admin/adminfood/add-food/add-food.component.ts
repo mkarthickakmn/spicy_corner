@@ -22,9 +22,18 @@ export class AddFoodComponent implements OnInit {
   	});
   }
  
+ ch()
+ {
+   if( (<HTMLInputElement>document.getElementById("img2")).value.length>0)
+     (<HTMLInputElement>document.getElementById("img1")).disabled=true;
+   else
+    (<HTMLInputElement>document.getElementById("img1")).disabled=false;
+
+ }
   submit()
   {
-    // this.addForm.value.img=this.image;
+    if(this.image)
+      this.addForm.value.image=this.image;
   	this.admin.addFood(this.addForm.value).subscribe(data=>{
   		alert('Food item inserted successfully!');
   	});
@@ -33,6 +42,15 @@ export class AddFoodComponent implements OnInit {
 
 
   changeListener($event) : void {
+
+   if( (<HTMLInputElement>document.getElementById("img1")).value.length>0)
+     (<HTMLInputElement>document.getElementById("img2")).disabled=true;
+   else
+    {
+      (<HTMLInputElement>document.getElementById("img2")).disabled=false;
+      this.image="";
+    }
+
   this.readThis($event.target);
 }
 

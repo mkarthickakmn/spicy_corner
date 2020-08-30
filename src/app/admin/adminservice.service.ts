@@ -11,7 +11,7 @@ import{AdminFoodService} from './adminfoodservice.service'
 // import{UserService} from './user.service';
 // import{FoodService} from './foodservice.service';
 // import{OrderService} from './orderservice.service';
-
+const url="";
 @Injectable({providedIn:'root'})
 export class AdminService  {
 constructor(private http:HttpClient,private adminFood:AdminFoodService){}
@@ -20,7 +20,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
    return this.http
       .post<any>(
-        '/addfood',
+        url+'/addfood',
           {
               food:food
           }
@@ -31,7 +31,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
     return this.http
       .post<any>(
-        '/getfood',{}
+        url+'/getfood',{}
         ).pipe(
           tap(data=>{
               this.adminFood.setFood(data);
@@ -43,10 +43,9 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
    return this.http
       .post<any>(
-        '/updatefood',
+        url+'/updatefood',
           {
               food:food,
-              image_change:image_change
           }
         )
   }
@@ -55,7 +54,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
    return this.http
       .post<any>(
-        '/delfood',
+        url+'/delfood',
           {
               food:food
           }
@@ -66,7 +65,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
      return this.http
       .post<any>(
-        '/search_category',
+        url+'/search_category',
           {
               category:category
           }
@@ -77,7 +76,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
      return this.http
       .post<any>(
-        '/view_Orders',{}
+        url+'/view_Orders',{}
         ).pipe(tap(data=>{
           this.adminFood.setOrders(data);
         }))
@@ -87,7 +86,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
      return this.http
       .post<any>(
-        '/pay_status',
+        url+'/pay_status',
           {
               id:id,
               user:user,
@@ -100,7 +99,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
    return this.http
       .post<any>(
-        '/view_delivered',{}
+        url+'/view_delivered',{}
         ) 
   }
 
@@ -108,7 +107,7 @@ constructor(private http:HttpClient,private adminFood:AdminFoodService){}
   {
     return this.http
       .post<any>(
-        '/getUser',{}
+        url+'/getUser',{}
         ) 
   }
   

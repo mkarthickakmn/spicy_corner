@@ -38,7 +38,7 @@ export class ViewOrdersComponent implements OnInit {
 
   		this.admin.viewOrders().subscribe(
   			data=>{
-  				this.orders=(data);
+  				this.orders=this.adminfood.setOrderProperty(data);
   				this.foodItems=this.adminfood.getFoodDetail(this.orders);
           if(this.orders.length==0)
             {

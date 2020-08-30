@@ -6,6 +6,7 @@ import{throwError,Subject,BehaviorSubject} from 'rxjs';
 import{FoodService} from './foodservice.service';
 import{DataStorageService}from './data-storage.service';
 import{ActivatedRoute,Params,Router} from '@angular/router';
+const url="";
 @Injectable({
 	providedIn:'root'
 })
@@ -50,7 +51,7 @@ export class UserService
 	login(user:User)
 	{
 
-		return this.http.post<User>("/login",
+		return this.http.post<User>(url+"/login",
 			{
 				user:user
 			}).
@@ -103,7 +104,7 @@ export class UserService
 
 	reg(user:User)
 	{
-		return this.http.post<User>("/register",
+		return this.http.post<User>(url+"/register",
 			{
 				user:user
 			}).
@@ -112,24 +113,24 @@ export class UserService
 
 	sendOtp(email)
 	{
-		return this.http.post<any>("/sendOtp",{
+		return this.http.post<any>(url+"/sendOtp",{
 			email:email
 		}).pipe(catchError(this.handleError));
 	}
 
 	submitOtp(otp)
 	{
-		return this.http.post<any>("/subOtp",{
+		return this.http.post<any>(url+"/subOtp",{
 			otp:otp
 		}).pipe(catchError(this.handleError));
 	}
 
 	updatePwd(email,pwd)
 	{
-		return this.http.post<any>("/updatePwd",{
+		return this.http.post<any>(url+"/updatePwd",{
 			email:email,
 			pwd:pwd
-		})
+		}).pipe(catchError(this.handleError))
 	}
 
 

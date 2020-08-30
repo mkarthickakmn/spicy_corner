@@ -10,7 +10,7 @@ import{map,tap,catchError} from 'rxjs/operators';
 import{UserService} from './user.service';
 import{FoodService} from './foodservice.service';
 import{OrderService} from './orderservice.service';
-
+const url="";
 @Injectable({providedIn:'root'})
 export class DataStorageService  {
 constructor(private http:HttpClient,private food:FoodService,private order:OrderService,private user:UserService){}
@@ -19,7 +19,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
    return this.http
       .post<Food[]>(
-        '/food',{}
+        url+'/food',{}
         ).pipe(tap(data=>{
           this.food.setFood(data);
         }))
@@ -32,7 +32,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
       {
          return this.http
             .post<Order[]>(
-              '/insertNewOrders',
+              url+'/insertNewOrders',
               {id:food._id,
                quantity:q,
                status:menu,
@@ -48,7 +48,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
       {
          return this.http
             .post<Order[]>(
-              '/updateNewOrders',
+              url+'/updateNewOrders',
               {id:food._id,
                quantity:q,
                status:menu,
@@ -64,7 +64,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
    return this.http
           .post<Order[]>(
-            '/insertCartOrders',
+            url+'/insertCartOrders',
             {
            user_id:this.user.getUserId(),
          id:food._id,
@@ -78,7 +78,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<Order[]>(
-            '/getOrders',{
+            url+'/getOrders',{
               user_id:this.user.getUserId()
             }
           ).pipe(tap(responseData=>{
@@ -91,7 +91,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<string>(
-            '/moveOrders',{
+            url+'/moveOrders',{
               id:id
             }
           )
@@ -102,7 +102,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<Order[]>(
-            '/getOrderByType',{
+            url+'/getOrderByType',{
               menu:menu,
               id:this.user.getUserId()
             }
@@ -113,7 +113,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
        return this.http
           .post<Order[]>(
-            '/updateQuantity',{
+            url+'/updateQuantity',{
               quantity:quantity,
               id:id
             }
@@ -128,7 +128,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<Order[]>(
-            '/delete_order',{
+            url+'/delete_order',{
 
               id:id
             }
@@ -139,7 +139,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<any>(
-            '/pay',{
+            url+'/pay',{
               id:this.user.getUserId(),
               user:user,
               price:price,
@@ -153,7 +153,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<any>(
-            '/setToOrdered',{
+            url+'/setToOrdered',{
               orders:orders,
               user_id:this.user.getUserId()
             }
@@ -164,7 +164,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<any>(
-            '/cancel',{
+            url+'/cancel',{
               orders:orders
             }
           )
@@ -174,7 +174,7 @@ constructor(private http:HttpClient,private food:FoodService,private order:Order
   {
     return this.http
           .post<any>(
-            '/saveAddress',{
+            url+'/saveAddress',{
               form:form,
               email:email
             }

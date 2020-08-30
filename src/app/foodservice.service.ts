@@ -118,6 +118,7 @@ export class FoodService implements OnInit {
       let foodByType=[];
       for(let x in this.food)
       {
+        console.log(this.food[x]);
           if(this.food[x].timings.type==type)
           {
               foodByType.push(this.food[x]);

@@ -3,23 +3,24 @@ require('./db/mongoose');
 var path=require('path');
 const favicon = require('express-favicon');
 const cors = require('cors');
-var nodemailer = require('nodemailer');
+const bodyParser = require('body-parser')
 var app=express();
-app.use(express.json())
+// app.use(express.json())
 app.use(cors());
 const http = require('http');
 const server = http.createServer(app);
 const User=require('./models/users');
 const Food= require('./models/food');
-const Timings=require('./models/timings');
 const Order=require('./models/orders');
 const Payment=require('./models/payment');
+const {transporter,otpmail}=require('./email/email');
 const port = process.env.PORT || 3000;
 var otp='';
 
+app.use(bodyParser.json({limit: '50mb'}));
+// app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 app.use(favicon(path.join(__dirname ,'../','spicy_corner.png')));
-console.log(path.join(__dirname ,'../', '/dist/SpicyCornerRestaurant'));
-console.log(path.join(__dirname ,'../', '/dist/SpicyCornerRestaurant/index.html'));
 
 app.use(express.static(path.join(__dirname ,'../', '/dist/SpicyCornerRestaurant')));
 
@@ -32,6 +33,8 @@ app.get('/*', function(req, res) {
 server.listen(port, () => {
     console.log(`Server is up on port ${port}!`)
 })
+
+
 
 
 app.post('/login',async(req,res)=>{
@@ -71,32 +74,18 @@ app.post('/sendOtp',async(req,res)=>{
 	var val = Math.floor(1000 + Math.random() * 9000);
 	console.log(val);
 	var email=req.body.email;
-	var transporter = nodemailer.createTransport({
-				  service: 'gmail',
-				  auth: {
-				    user: 'mkarthickakmn@gmail.com',
-				    pass: 'karthickakmn1249'
-				  }
-				});
 
-				var mailOptions = {
-				  from: 'mkarthickakmn@gmail.com',
-				  to: email,
-				  subject: 'OTP Spicy Corner',
-				  text: 'Your otp is '+val
-				};
-
-				transporter.sendMail(mailOptions, function(error, info){
-				  if (error) {
-				  	console.log("error");
-				    console.log(error);
-				    res.sendStatus(503);
-				  } else {
-				    console.log('Email sent: ' + info.response);
-				    otp=val;
-					res.send({timer:30});
-				  }
-				});
+	transporter.sendMail(otpmail(email,val), function(error, info){
+	  if (error) {
+	  	console.log("error");
+	    console.log(error);
+	    res.sendStatus(503);
+	  } else {
+	    console.log('Email sent: ' + info.response);
+	    otp=val;
+		res.send({timer:30});
+	  }
+	});
 })
 
 
@@ -123,13 +112,20 @@ app.post('/updatePwd',async(req,res)=>{
 
 	var email=req.body.email;
 	var pwd=req.body.pwd;
-	try
-	{
-		const user=await User.findOne({userEmail:email});
-	 	user.userpassword=pwd;
-	 	await user.save();
-	 	res.status(201).send();
-	 }catch(e){throw e}; 
+	
+	const user=await User.findOne({userEmail:email});
+ 	user.userpassword=pwd;
+
+ 	await user.save(function(err, user) {
+    if (err) 
+    {
+    	console.log(err);
+        if(err._message== 'User validation failed')
+	    	res.status(502).send();
+    }
+    else
+		res.status(201).send();
+	})
 })
 
 app.post('/food',async (req,res)=>{
@@ -417,7 +413,27 @@ app.post('/getfood',async (req,res)=>{
 
 
 app.post('/addfood',async (req,res)=>{
+	
+	
+	   function is_url(str)
+{
+  regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+        if (regexp.test(str))
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+}
+	console.log((req.body.food.image));
 
+	console.log(is_url(req.body.food.image));
+	if(!is_url(req.body.food.image))
+	{
+		req.body.food.image='data:image/png;base64,'+req.body.food.image;
+	}
 	const food=new Food({...req.body.food,available:1});
 	try
 	{
@@ -430,45 +446,21 @@ app.post('/addfood',async (req,res)=>{
 app.post('/updatefood',async(req,res)=>{
 
 	var food=req.body.food;
-	var img_change=req.body.image_change;
+	// var img_change=req.body.image_change;
 	 var update={}
-	if(img_change==0)
+	// if(img_change==0)
 	{
 		update={
 				name:food.name,
 				description:food.description,
+				image:food.image,
 				amount:food.amount,
 				quantity:food.quantity,
 				timings_id:food.timings_id,
 				available:food.available
 				}	
 	}
-	// else
-	// {
-
-	// 	food.image=food.image.slice(22);
-	// 	// console.log(food.image);
-	// 	var buffer = new Buffer(food.image, 'base64');
-	// 	var today=new Date().getUTCMilliseconds();	
-	// 	var file_name='!';
-	// 	file_name += (today + Math.random() + 1).toString(36).substring(7) + (today + Math.random() + 2).toString(36).substring(7) + (today + Math.random() + 3).toString(36).substring(7);
-	// 	file_name = file_name + '.jpg';
-
-	// 	var savePath = path.resolve(__dirname + '/images/' + file_name);
-	// 	console.log('PATH: ' + savePath);
-		
-	// 	fs.writeFileSync(savePath, buffer);
-	// 	 var update={
-	// 		name:food.name,
-	// 		description:food.description,
-	// 		image:file_name,
-	// 		amount:food.amount,
-	// 		quantity:food.quantity,
-	// 		timings_id:food.timings_id,
-	// 		available:food.available
-	// 	}
-			
-	// }
+	
 	var filter={_id:food._id};			
 	try
 		{
@@ -501,7 +493,7 @@ app.post('/search_category',async(req,res)=>{
 	try
 		{
 			if(id==0)
-				food = await Food.find({});
+				food = await Food.find({}).sort({'timings_id': 1});
 			else
 				food = await Food.find({timings_id:id});
 			if(food)
@@ -513,7 +505,7 @@ app.post('/search_category',async(req,res)=>{
 app.post('/view_Orders',async(req,res)=>{
 	try
 		{
-			let payment = await Payment.find({status:'Not delivered'}).sort({createdAt : -1}).populate({
+			let payment = await Payment.find({status:'Not delivered'}).sort({createdAt :1}).populate({
 				path:'orders',
 				model:'Order',
 				populate:{
@@ -553,7 +545,7 @@ console.log(req.body);
 app.post('/view_delivered',async(req,res)=>{
 	try
 		{
-			let payment = await Payment.find({status:'delivered'}).sort({createdAt : -1}).populate({
+			let payment = await Payment.find({status:'delivered'}).sort({updatedAt : 1}).populate({
 				path:'orders',
 				model:'Order',
 				populate:{

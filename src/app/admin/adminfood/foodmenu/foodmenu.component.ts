@@ -10,8 +10,6 @@ export class FoodmenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  	console.log('hi');
-  	document.getElementById('view').click();
   }
 
 }

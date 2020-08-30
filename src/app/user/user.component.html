@@ -1,6 +1,6 @@
 
 
-<div class="col-xs-12">
+<div class="col-xs-12" style="padding: 16px;">
 	<div class="col-xs-2"></div>
 	<div class="col-xs-8" *ngIf="!loginMode">
 		<div *ngIf="error" class="alert alert-danger">{{error}}</div>
@@ -12,7 +12,7 @@
 			</div>
 			<div class="form-group">
 				<label>Password  :</label>
-				<input type="password" class="form-control" #userpassword="ngModel" name="userpassword" ngModel required>
+				<input type="password" class="form-control" placeholder="minimum 6 characters" #userpassword="ngModel" name="userpassword" ngModel required>
 				<span *ngIf="!userpassword.valid&&userpassword.touched" class="help-block" >please enter the userpassword</span>
 			</div>
 			<div class="form-group">
@@ -22,7 +22,7 @@
 			</div>
 			<div class="form-group">
 				<label>EmailId  :</label>
-				<input type="email" class="form-control" name="userEmail" #userEmail="ngModel" ngModel required>
+				<input type="email" class="form-control" name="userEmail" #userEmail="ngModel"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  ngModel required>
 				<span *ngIf="!userEmail.valid&&userEmail.touched" class="help-block" >please the valid email address</span>
 			</div>
 			<div class="form-group">
@@ -71,15 +71,15 @@
 			<form [hidden]="cnf" (ngSubmit)="confirmPwd(forgotten)" #forgotten="ngForm">
 				<div class="form-group">
 					<label>New Password  :</label>
-					<input type="password" class="form-control" #newpassword="ngModel" name="newpassword" ngModel required>
+					<input type="password" class="form-control" placeholder="minimum 6 characters" #newpassword="ngModel" name="newpassword" ngModel required>
 					<span *ngIf="!newpassword.valid&&newpassword.touched" class="help-block" >please enter the newpassword</span>
 				</div>
 				<div class="form-group">
 					<label>Confirm Password  :</label>
-					<input type="password" class="form-control" #cnfpassword="ngModel" name="cnfpassword" ngModel required>
+					<input type="password" class="form-control" placeholder="minimum 6 characters" #cnfpassword="ngModel" name="cnfpassword" ngModel required>
 					<span *ngIf="!cnfpassword.valid&&cnfpassword.touched" class="help-block" >please enter the confirmpassword</span>
 					<span *ngIf="cnfpassword.value!=newpassword.value" class="help-block" >Both password should be same</span>
-					<span *ngIf="cnfpassword.value==newpassword.value&&newpassword.valid&&cnfpassword.valid" class="help-block" >Password Correct!!!</span>
+					<!-- <span *ngIf="cnfpassword.value==newpassword.value&&newpassword.valid&&cnfpassword.valid" class="help-block" >Password Correct!!!</span> -->
 				</div>
 				<button class="btn btn-success" [disabled]="!forgotten.valid||cnfpassword.value!=newpassword.value" >submit</button>
 			</form>

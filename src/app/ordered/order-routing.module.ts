@@ -8,10 +8,10 @@ import{OrderResolverService} from '../order-resolver.service';
 import{AuthGuard} from '../auth.guard';
 
 const appRoutes:Routes=[
-						{path:'order',component:OrderedComponent,canActivate:[AuthGuard],resolve:[OrderResolverService],
-							children:[{path:'',component:OrderlistComponent,},
-								{path:':id',component:OrderlistComponent},
-								{path:':id/edit',component:OrderEditComponent}],
+						{path:'',component:OrderedComponent,canActivate:[AuthGuard],resolve:[OrderResolverService],
+						children:[{path:'',component:OrderlistComponent,},
+							{path:':id',component:OrderlistComponent},
+							{path:':id/edit',component:OrderEditComponent}],
 
 						}
 						]

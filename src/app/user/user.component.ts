@@ -98,11 +98,12 @@ timeLeft:any;
       this.email=email.value;   
       this.loading=true;
        this.userService.sendOtp(email.value).subscribe(data=>{
+        console.log(data);
        this.loading=false;
        alert('Otp has been sent to ur mail id');
        this.forgetPwd=!this.forgetPwd; 
       this.forget=true;
-       this.timeLeft=data.body.timer;
+       this.timeLeft=data.timer;
        var timer=1000;
       this.interval = setInterval(() => {
       if(this.timeLeft>0)
@@ -134,7 +135,7 @@ timeLeft:any;
        this.resend=true;
        this.otpvalue="submit otp";
       this.forget=true;
-       this.timeLeft=data.body.timer;
+       this.timeLeft=data.timer;
        var timer=1000;
       this.interval = setInterval(() => {
       if(this.timeLeft>0)
@@ -166,7 +167,10 @@ timeLeft:any;
           this.cnf=true;
           this.forget=false;
           this.error=null;
-        });
+        },errormessage=>{
+          this.error="invalid password";
+          this.loading=false;
+       });    ;
       }
       
   }

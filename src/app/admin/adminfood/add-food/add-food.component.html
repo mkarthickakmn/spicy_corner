@@ -9,8 +9,9 @@
 				</div>
 				<div class="form-group">
 					<label>Image: </label>
-					<!-- <input type="file" formControlName="img" (change)="changeListener($event)" class="form-control" name="img"> -->
-					<input type="text"  class="form-control" name="img" formControlName="image">
+					<input type="file" formControlName="image" id ="img1"(change)="changeListener($event)" class="form-control" name="img1">
+					<div style="text-align: center">or</div>
+					<input type="text"  placeholder="image url address" (change)="ch()"  id ="img2" class="form-control"name="img2" formControlName="image">
 				</div>
 				<div class="form-group">
 					<label>Category: </label>
@@ -27,13 +28,13 @@
 				</div>
 				<div class="form-group">
 					<label>Quantity: </label>
-					<input type="text" class="form-control" formControlName="quantity" name="quantity">
+					<input type="number" class="form-control" formControlName="quantity" name="quantity">
 				</div>
 				<div class="form-group">
 					<label>Description: </label>
 					<input type="textarea" class="form-control" formControlName="description" name="desc">
 				</div>
-				<button type="submit" class="btn btn-success">Add</button>
+				<button type="submit" [disabled]="!addForm.valid" class="btn btn-success">Add</button>
 				<div id="result"></div>
 			</form>
 		</div>
