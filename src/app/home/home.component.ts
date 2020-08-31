@@ -20,6 +20,16 @@ export class HomeComponent implements OnInit {
   message:string="";
   ngOnInit(): void {
 
+      if((JSON.parse(localStorage.getItem('spicy_user'))))
+      if((JSON.parse(localStorage.getItem('spicy_user')))[0].userEmail!=="mkarthickakmn@gmail.com")
+      {
+        this.route.navigate(['/home']);
+      }
+      else
+      {
+        this.route.navigate(['/admin/home']);
+      }
+      
     this.datastorage.readyToServe().subscribe(data=>{
       console.log("readyToServe");
       console.log(data);
