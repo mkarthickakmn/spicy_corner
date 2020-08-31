@@ -6,7 +6,7 @@ import{throwError,Subject,BehaviorSubject} from 'rxjs';
 import{FoodService} from './foodservice.service';
 import{DataStorageService}from './data-storage.service';
 import{ActivatedRoute,Params,Router} from '@angular/router';
-const url="http://localhost:3000";
+const url="";
 @Injectable({
 	providedIn:'root'
 })

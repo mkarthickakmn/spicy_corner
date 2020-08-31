@@ -10,7 +10,7 @@ import{map,tap,catchError} from 'rxjs/operators';
 import{UserService} from './user.service';
 import{FoodService} from './foodservice.service';
 import{OrderService} from './orderservice.service';
-const url="http://localhost:3000";
+const url="";
 @Injectable({providedIn:'root'})
 export class DataStorageService  {
 constructor(private http:HttpClient,private food:FoodService,private order:OrderService,private user:UserService){}

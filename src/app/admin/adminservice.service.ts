@@ -11,7 +11,7 @@ import{AdminFoodService} from './adminfoodservice.service'
 // import{UserService} from './user.service';
 // import{FoodService} from './foodservice.service';
 // import{OrderService} from './orderservice.service';
-const url="http://localhost:3000";
+const url="";
 @Injectable({providedIn:'root'})
 export class AdminService  {
 constructor(private http:HttpClient,private adminFood:AdminFoodService){}
