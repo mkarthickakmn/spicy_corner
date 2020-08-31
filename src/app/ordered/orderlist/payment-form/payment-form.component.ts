@@ -102,7 +102,7 @@ export class PaymentFormComponent implements OnInit {
         subscribe(data=>{
            alert('User Details saved succesfully');
           console.log(data);
-          localStorage.setItem('user',JSON.stringify(data));
+          localStorage.setItem('spicy_user',JSON.stringify(data));
           this.userService.setUser(data);
         })
       this.button="edit";

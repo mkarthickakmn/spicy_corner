@@ -17,8 +17,18 @@ export class HeaderComponent implements OnInit {
 
   log:string="";
   user:string="";
+  show:boolean;
   ngOnInit(): void {
 
+    let time=(new Date().getHours()+(new Date().getMinutes()/60));
+    if(time>=7)
+    {
+      this.show=true;
+    }
+    else
+    {
+      this.show=false;
+    }
   	this.userService.loggedIn.
   	subscribe((log)=>{
       if(log)

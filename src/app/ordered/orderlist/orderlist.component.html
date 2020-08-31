@@ -3,12 +3,12 @@
  style="cursor:pointer;" [routerLink]="['/order',order._id,'edit']" [queryParams]="{edit:0}" data-toggle="modal" data-target="#myModal1" 
  ></app-orderitem>
 
- <div class="col-xs-12" *ngIf="!noOrders">
+ <div class="col-xs-12" *ngIf="!noOrders&&total">
  	<h3>Total Price : {{total}}</h3>
  </div>
 <div class="col-xs-12">
 	<hr>
-	<app-payment-form *ngIf="!noOrders"  [order]="foodOrder" ></app-payment-form>	
+	<app-payment-form *ngIf="!noOrders&&total"  [order]="foodOrder" ></app-payment-form>	
 </div>
- <h4 *ngIf="noOrders&&menu!='Ordered Items'">No orders found!!!</h4>
+ <h4 *ngIf="noOrders">No orders found!!!</h4>
  </body>

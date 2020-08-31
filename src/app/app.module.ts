@@ -60,7 +60,7 @@ import{LoaderComponent} from './loader/loader.component';
     // OrdersComponent,
     // ViewOrdersComponent,
     // ViewDeliveredComponent,
-    // LoaderComponent,
+    LoaderComponent,
     // AdminHomeComponent
       ],
   imports: [

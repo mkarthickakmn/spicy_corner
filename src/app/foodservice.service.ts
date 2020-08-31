@@ -85,18 +85,15 @@ export class FoodService implements OnInit {
           const y= this.timings.find((food)=>{
                if(food.timings_id==this.food[x].timings_id)
                {          
-
                    this.food[x].timings=food;
                    return this.food[x];
                }
           })
-
-          if(this.food[x].timings.s_time<time&&time<this.food[x].timings.e_time)
+          if(this.food[x].timings.s_time<=time&&time<this.food[x].timings.e_time)
           {
               foodByTime.push(this.food[x]);
           }
       }
-          console.log(foodByTime)
 
           return foodByTime;
     }
@@ -118,7 +115,6 @@ export class FoodService implements OnInit {
       let foodByType=[];
       for(let x in this.food)
       {
-        console.log(this.food[x]);
           if(this.food[x].timings.type==type)
           {
               foodByType.push(this.food[x]);

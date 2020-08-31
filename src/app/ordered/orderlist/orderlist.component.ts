@@ -76,10 +76,16 @@ export class OrderlistComponent implements OnInit,OnDestroy {
                        this.total=this.orderservice.getTotal(menu,this.foodOrder);
                        
                      }
-                     else
+                     else if(menu=='Ordered Items'&&this.foodOrder.length>0)
                      {
                        this.total=null;
-                       this.noOrders=true;
+                       this.noOrders=false;
+                     }
+                     else
+                     {
+
+                        this.total=null;
+                        this.noOrders=true; 
                      }
                   }
                    

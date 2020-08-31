@@ -57,7 +57,7 @@ export class UserService
 			}).
 		pipe(catchError(this.handleError),
 			tap(user=>{
-				localStorage.setItem('user',JSON.stringify(user));
+				localStorage.setItem('spicy_user',JSON.stringify(user));
 			 	this.expirationDate = new Date().getTime()+(600 * 1000);
 				localStorage.setItem('exp',(this.expirationDate));
 				console.log(this.expirationDate);	
@@ -89,7 +89,7 @@ export class UserService
 
 	autoLogin()
 	{
-		let user:User=(JSON.parse(localStorage.getItem('user')))
+		let user:User=(JSON.parse(localStorage.getItem('spicy_user')))
 		this.loggedIn.next(user);
 		this.setUser(user);
 		if(user)

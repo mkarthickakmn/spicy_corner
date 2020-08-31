@@ -16,6 +16,15 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
 
     this.otpvalue="submit otp";
+    if((JSON.parse(localStorage.getItem('spicy_user'))))
+      if((JSON.parse(localStorage.getItem('spicy_user')))[0].userEmail!=="mkarthickakmn@gmail.com")
+      {
+        this.router.navigate(['/home']);
+      }
+      else
+      {
+        this.router.navigate(['/admin/home']);
+      }
     
   }
   loginMode:boolean=true;
@@ -47,8 +56,10 @@ export class UserComponent implements OnInit {
   {
     this.error=null;
   	console.log(form2.value);
+    this.loading=true;
   	this.userService.login(form2.value).subscribe(responseData=>{
       console.log(responseData);
+      this.loading=false;
       // if(responseData.status==200)
       {
         this.userService.setUser(responseData);
@@ -68,6 +79,8 @@ export class UserComponent implements OnInit {
       }
       },errormessage=>{
         this.error=errormessage;
+        this.loading=false;
+
       });
   }
 
