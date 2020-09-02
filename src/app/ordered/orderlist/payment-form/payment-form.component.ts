@@ -25,7 +25,9 @@ export class PaymentFormComponent implements OnInit {
    price:number;
    button:string="edit";
    user:User;
+   time:any;
   ngOnInit(): void {
+   this.time=(new Date().getHours()+(new Date().getMinutes()/60));
     this.orderservice.orderType.subscribe(
 
         (menu:string)=>{
@@ -77,7 +79,8 @@ export class PaymentFormComponent implements OnInit {
   }
   submit()
   {   
-     this.datastorage.setToOrderedItems(this.order).subscribe(
+     if(this.time>=7)       
+       this.datastorage.setToOrderedItems(this.order).subscribe(
            data=>{
              this.datastorage.setPay(this.paymentForm.value,this.price,
              this.pay.nativeElement.value,this.order).subscribe(data=>{
@@ -90,6 +93,8 @@ export class PaymentFormComponent implements OnInit {
                 this.orderservice.notification.next();
                  })
              });
+     else
+       alert("No services available right now");
      
   }
 

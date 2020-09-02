@@ -20,15 +20,20 @@ export class FoodtypesComponent implements OnInit {
   {
     this.count=this.foodservice.countFoodByType();
     this.time=(new Date().getHours()+(new Date().getMinutes()/60));
+    if(this.time<7)
+          this.count=[0,0,0,0];
     this.type=this.foodtimingservice.getTimings();
     // this.food=this.foodservice.getfoodServicesByTimings(); 
   }
   
   foodType(type:string,i:number)
   {
-    this.click=true;
-    this.no=i;
-    this.foodservice.foodByType.emit(type);
+    if(this.time>=7)
+    {
+        this.click=true;
+        this.no=i;
+        this.foodservice.foodByType.emit(type);
+    }
   }
 
   

@@ -6,6 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser')
 var app=express();
 // app.use(express.json())
+const webpush = require('web-push');
 app.use(cors());
 const http = require('http');
 const server = http.createServer(app);
@@ -35,6 +36,100 @@ server.listen(port, () => {
 })
 
 
+////////////Notification//////////////////
+var fakeDatabase=null;
+var notificationPayload=[];
+const PUBLIC_VAPID="BEWIp3Js3csi8YcJhBcpZPnseMSUnTrTWh9WIbtP5yp1gC-XQJWxUGopGw5wIH5yGW59lW7v4CeL7K75FhpGAdI";
+const PRIVATE_VAPID="_XbnZ9jw4XJrO53HXOs-1xOkKUHoZeZQ0s9Wh0wIAzo";
+webpush.setVapidDetails('mailto:mkarthickakmn@gmail.com', PUBLIC_VAPID, PRIVATE_VAPID)
+
+app.post('/subscription', (req, res) => {
+  const subscription = req.body
+  fakeDatabase=subscription;
+  
+})
+
+app.post('/sendNotification', async(req, res) => {
+	var notification=[]
+	var notification_object={name:'',price:''};
+
+	try
+	{
+		let payment = await Payment.find({status:'Not delivered'}).sort({createdAt :1}).populate('user_id') 
+		.exec(function(err, payment){
+		    //do stuff
+		     payment.forEach( pay=>{
+		    	notification_object.name=pay.user_id.username;
+		    	notification_object.price=pay.price;
+		    	notification.push(notification_object);
+		    	notification_object={};
+		    })
+
+	      	const promises = [];
+			notification.forEach((notification)=>{
+		  	const notificationPayload = {
+			    notification: {
+			      title: 'New Notification',
+			      body: notification.name+'Ordered food for Rs.'+notification.price,
+			      icon: 'assets/icons/icon-512x512.png',
+			    },
+			}
+			promises.push(
+			  webpush.sendNotification(
+			    fakeDatabase,
+			    JSON.stringify(notificationPayload)
+			  )
+			)
+		})
+
+		});
+
+	console.log('hi');
+	}
+	catch(e){throw e}
+
+})
+
+async function getNotify()
+{
+	var notification=[]
+	var notification_object={name:'',price:''};
+
+	try
+	{
+		let payment = await Payment.find({status:'Not delivered'}).sort({createdAt :1}).populate('user_id') 
+		.exec(function(err, payment){
+		    //do stuff
+		     payment.forEach( pay=>{
+		    	notification_object.name=pay.user_id.username;
+		    	notification_object.price=pay.price;
+		    	notification.push(notification_object);
+		    	notification_object={};
+		    })
+
+	      	const promises = [];
+			notification.forEach((notification)=>{
+		  	const notificationPayload = {
+			    notification: {
+			      title: 'New Notification',
+			      body: notification.name+'Ordered food for Rs.'+notification.price,
+			      icon: 'assets/icons/icon-512x512.png',
+			    },
+			}
+			promises.push(
+			  webpush.sendNotification(
+			    fakeDatabase,
+			    JSON.stringify(notificationPayload)
+			  )
+			)
+		})
+
+		});
+
+	console.log('hi');
+	}
+	catch(e){throw e}
+}
 
 
 app.post('/login',async(req,res)=>{
@@ -334,6 +429,7 @@ app.post('/setToOrdered',async(req,res)=>{
 	}catch(e){throw e};
 })
 
+
 app.post('/pay',async(req,res)=>{
 
 	// console.log(req.body);
@@ -355,7 +451,7 @@ app.post('/pay',async(req,res)=>{
 					status:'Not delivered',
 					orders:order_array
 					}).save();
-	
+		getNotify();
 		res.status(201).send();
 	}catch(e){throw e};
 })
@@ -515,6 +611,7 @@ app.post('/view_Orders',async(req,res)=>{
 			}).populate('user_id') 
 			.exec(function(err, payment){
 			    //do stuff
+
 				res.send(payment);
 			});
 			

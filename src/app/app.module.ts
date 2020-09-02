@@ -33,6 +33,8 @@ import { AdminHeaderComponent } from './admin/admin-header/admin-header.componen
 // import { ViewOrdersComponent } from './admin/orders/view-orders/view-orders.component';
 // import { ViewDeliveredComponent } from './admin/orders/view-delivered/view-delivered.component';
 import{LoaderComponent} from './loader/loader.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import{LoaderComponent} from './loader/loader.component';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     // ClientFoodModule,
     // AdminModule
   ],

@@ -13,6 +13,7 @@ export class UserComponent implements OnInit {
   constructor(private userService:UserService,private router:Router) { }
   @ViewChild('reg') form1:NgForm;
   @ViewChild('log') form2:NgForm;
+  time:any;
   ngOnInit(): void {
 
     this.otpvalue="submit otp";
@@ -25,6 +26,7 @@ export class UserComponent implements OnInit {
       {
         this.router.navigate(['/admin/home']);
       }
+
     
   }
   loginMode:boolean=true;
@@ -72,8 +74,7 @@ export class UserComponent implements OnInit {
           this.router.navigate(['/admin/home']);
         }
         else
-          {
-            // this.chatService.newUser(responseData.body[0].userEmail);
+          {    
             this.router.navigate(['/food']);
           }
       }

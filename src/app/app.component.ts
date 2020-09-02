@@ -5,14 +5,15 @@ import{OrderService} from "./orderservice.service";
 // import{SwPush} from '@angular/service-worker';
 import{PushNotificationService}from './PushNotification.service';
 // import{ChatService} from './contact/chat.service';
-// {"publicKey":"BF7os0_sOIDP0hd1D4Db7BZ7zZUrpUKeVWEEUnofdWcl3pZxHyL--k6mU0n5s5dNBZI0vdjR0ZslWyBG7Wujepg","privateKey":"Q9OTu8GN4zIFpSCahiT64myP77D6SCNBCDEyhgzwJ3o"}
-const VAPID_PUBLIC="BBM03EvU6sNyctD7Gk2hPnEoZVGHK_Mq4NqM3T9Fs6qgoyKSFQAiYm3sLFcLWiwKiBL_h8M-Q9Okw1HsIPLsgn8";
+const VAPID_PUBLIC="BEWIp3Js3csi8YcJhBcpZPnseMSUnTrTWh9WIbtP5yp1gC-XQJWxUGopGw5wIH5yGW59lW7v4CeL7K75FhpGAdI";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
  
 })
+
+// "publicKey":"BEWIp3Js3csi8YcJhBcpZPnseMSUnTrTWh9WIbtP5yp1gC-XQJWxUGopGw5wIH5yGW59lW7v4CeL7K75FhpGAdI","privateKey":"_XbnZ9jw4XJrO53HXOs-1xOkKUHoZeZQ0s9Wh0wIAzo"
 export class AppComponent  implements OnInit  {
 	constructor(private userService:UserService,private pushService: PushNotificationService,
 		private orderservice:OrderService){

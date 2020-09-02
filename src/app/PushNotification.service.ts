@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 
-const SERVER_URL = 'http://localhost:3000/subscription'
+const SERVER_URL = '/subscription'
 
 @Injectable({providedIn:'root'})
 export class PushNotificationService {
@@ -13,6 +13,6 @@ export class PushNotificationService {
 
   public getNotification()
   {
-  	 return this.http.post('http://localhost:3000/sendNotification',{})
+  	 return this.http.post('/sendNotification',{})
   }
 }
