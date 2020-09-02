@@ -1,5 +1,6 @@
 import{Injectable} from '@angular/core';
 import{Subject} from 'rxjs';
+import * as moment from 'moment';
 @Injectable({providedIn:'root'})
 export class AdminFoodService
 {
@@ -88,6 +89,9 @@ export class AdminFoodService
 				order[x].item+=order[x].orders[y].order_quantity+",";
 			}
 			order[x].item=order[x].item.substr(0,order[x].item.length-1);
+			order[x].createdTime=moment(order[x].createdAt).format('LLL');
+			order[x].updatedTime=moment(order[x].updatedAt).format('LLL');
+
 		}
 		return order;
 	}

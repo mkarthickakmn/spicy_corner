@@ -5,6 +5,10 @@
       <h4 class="list-group-item-heading">{{ order.food.name }} x {{order.order_quantity}}</h4>
       <p class="list-group-item-text">{{ order.food.description}}</p>
       <span>Price:Rs{{(order.food.amount*order.order_quantity)}}</span>
+      <p *ngIf="isDelivered;else block">delivered on :{{order.time}}</p>
+      <ng-template #block>
+        <p *ngIf="order.order_status=='Ordered Items'">ordered on :{{order.time}}</p>
+      </ng-template>
     </div>
     <span class="pull-right">
       <div *ngIf="isDelivered" style="background-color: green;color:white;">delivered</div>

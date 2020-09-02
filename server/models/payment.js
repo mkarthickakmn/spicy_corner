@@ -19,6 +19,16 @@ const paySchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+     delivery_address: {
+        type: String,
+        required: true,
+        trim: true
+    },
+     userphone: {
+        type: Number,
+        required: true,
+        trim: true
+    },
     price: {
         type: Number,
         required: true,

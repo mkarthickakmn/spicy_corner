@@ -10,21 +10,23 @@
 						<th>Ordered Items</th>
 						<th>Total price</th>
 						<th>PayMethod</th>
+						<th>Date/Time</th>
 						<th>option</th>
 					</thead>
 				 
 					<tr *ngFor="let order of orders; let i=index; " >
 						<td>{{order.user_id.username}}</td>
 						<td>{{order.user_id.userEmail}}</td>
-						<td>{{order.user_id.address}}</td>
-						<td>{{order.user_id.phone}}</td>
+						<td>{{order.delivery_address}}</td>
+						<td>{{order.userphone}}</td>
 						<td>{{order.item}}</td>
 						<td>{{order.price}}</td>
 						<td>{{order.payMethod}}</td>
+						<td>{{order.createdTime}}</td>
 						<td><button class="btn btn-success" (click)="setToDeliver(order._id,order.user_id,order.orders)">set to deliver</button></td>
 					</tr>
 					<tr *ngIf="noOrders"> 
-						<td colspan="8"><h4  style="text-align: center;">No orders found!!!</h4></td>
+						<td colspan="9"><h4  style="text-align: center;">No orders found!!!</h4></td>
 					</tr>
 				</table>	
 		</div>

@@ -1,10 +1,11 @@
 td
 {
-	padding: 2%;
+	padding: 1%;
 	border:1px solid black;
 }
 
 th
 {
 	padding: 1%;
+	text-align: center;
 }

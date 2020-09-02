@@ -429,7 +429,7 @@ app.post('/setToOrdered',async(req,res)=>{
 
 app.post('/pay',async(req,res)=>{
 
-	// console.log(req.body);
+	console.log(req.body);
 	var orders=(req.body.order);
 	var order_array=[];
 	var i=0;
@@ -445,6 +445,8 @@ app.post('/pay',async(req,res)=>{
 		let payment=await new Payment({user_id:req.body.id,
 					price:req.body.price,
 					payMethod:req.body.payMethod,
+					delivery_address:req.body.user.address,
+					userphone:req.body.user.phone,
 					status:'Not delivered',
 					orders:order_array
 					}).save();
