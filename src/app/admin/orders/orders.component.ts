@@ -17,7 +17,6 @@ export class OrdersComponent implements OnInit {
     document.getElementById('add').click();
   	this.admin.viewOrders().subscribe();
     this.adminfood.count.subscribe(data=>this.count=data.length);
-    this.pushService.getNotification().subscribe();
 
   }
 

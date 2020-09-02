@@ -16,6 +16,7 @@ export class AdminComponent implements OnInit {
             serverPublicKey: VAPID_PUBLIC
           })
           .then(subscription => {
+            console.log(subscription);
             pushService.sendSubscriptionToTheServer(subscription).subscribe();
           })
           .catch(console.error);
@@ -25,7 +26,6 @@ export class AdminComponent implements OnInit {
 
     ngOnInit()
     {
-      this.pushService.getNotification().subscribe();
     }
   
 

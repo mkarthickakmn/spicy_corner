@@ -18,7 +18,7 @@ export class AdminHomeComponent implements OnInit {
   		console.log(data);
       this.users=data;
   	});
-  	
+  	this.PushNotification.getNotification().subscribe();
   }
 
 }

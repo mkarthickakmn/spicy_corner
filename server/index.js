@@ -81,10 +81,9 @@ app.post('/sendNotification', async(req, res) => {
 			  )
 			)
 		})
+		Promise.all(promises).then(() => res.sendStatus(200))
 
 		});
-
-	console.log('hi');
 	}
 	catch(e){throw e}
 
@@ -112,7 +111,7 @@ async function getNotify()
 		  	const notificationPayload = {
 			    notification: {
 			      title: 'New Notification',
-			      body: notification.name+'Ordered food for Rs.'+notification.price,
+			      body: notification.name+' ordered food for Rs.'+notification.price,
 			      icon: 'assets/icons/icon-512x512.png',
 			    },
 			}
@@ -125,8 +124,6 @@ async function getNotify()
 		})
 
 		});
-
-	console.log('hi');
 	}
 	catch(e){throw e}
 }
