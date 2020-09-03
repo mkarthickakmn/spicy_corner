@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Order=require('./orders');
 const Food=require('./food');
 const User=require('./users');
-const {transporter,paymentMail}=require('../email/email');
+const {transporter,paymentMail,adminMail}=require('../email/email');
 
 const paySchema = new mongoose.Schema({    
     user_id: {
@@ -70,7 +70,19 @@ paySchema.pre('save', async function (next) {
 
 
     const user=await User.findOne( { _id: order.user_id });
-    await transporter.sendMail(paymentMail(bill,user.userEmail,order.price), function(error, info){
+    
+    await transporter.sendMail(adminMail(bill,user.username,user.userEmail,order.price), function(error, info){
+      if (error) 
+      {
+        console.log(error);
+      } 
+      else
+      {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
+    await transporter.sendMail(paymentMail(bill,user.username,user.userEmail,order.price), function(error, info){
       if (error) 
       {
         console.log(error);

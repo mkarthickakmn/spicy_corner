@@ -58,26 +58,26 @@ app.post('/login',async(req,res)=>{
     	res.status(502).send();
     else
     	{
-    		var registrationToken = req.body.token;
-			var payload = {
-			  notification: {
-			    title: "SpicyCOrner",
-			    body: "Have a good food"
-			  }
-			};
+   //  		var registrationToken = req.body.token;
+			// var payload = {
+			//   notification: {
+			//     title: "SpicyCOrner",
+			//     body: "Have a good food"
+			//   }
+			// };
 
-			 var options = {
-			  priority: "high",
-			  timeToLive: 60 * 60 *24
-			};
+			//  var options = {
+			//   priority: "high",
+			//   timeToLive: 60 * 60 *24
+			// };
 
-			admin.messaging().sendToDevice(registrationToken, payload, options)
-			  .then(function(response) {
-			    console.log("Successfully sent message:", response);
-			  })
-			  .catch(function(error) {
-			    console.log("Error sending message:", error);
-			  });
+			// admin.messaging().sendToDevice(registrationToken, payload, options)
+			//   .then(function(response) {
+			//     console.log("Successfully sent message:", response);
+			//   })
+			//   .catch(function(error) {
+			//     console.log("Error sending message:", error);
+			//   });
     		res.send([user]);
     	}
 
@@ -391,7 +391,6 @@ app.post('/pay',async(req,res)=>{
 					status:'Not delivered',
 					orders:order_array
 					}).save();
-		getNotify();
 		res.status(201).send();
 	}catch(e){throw e};
 })

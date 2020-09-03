@@ -23,9 +23,51 @@ const otpmail=(email,val)=>{
 	 
 	};
 	return mailOptions;
+}
+
+
+const adminMail=(bill,name,email,total)=>{
+	console.log(bill);
+	let message = (
+				  '<table style="border:1px solid black;padding:8px;">' +
+				  '<tr>' +
+				  '<th> S.No </th>' +
+				  '<th> Item </th>'  +
+				  '<th> Price </th>'  +
+				  '</tr>'
+				); 
+
+	bill.forEach(function (food) {
+message += (
+     '<tr>' +
+      '<td>' + food.itemno + '</td>' +
+      '<td>' + food.OrderedItems + '</td>' +
+      '<td>' + food.Price + '</td>' +
+    '</tr>'
+   );
+});
+
+   
+message +=  '<td><b>Total</b></td><td colspan="2" style="text-align:center"><b>'+total+'</b></td></table>';
+
+	var mailOptions = {
+	  from:'mkarthickakmn@gmail.com',
+	  to: 'mkarthickakmn@gmail.com',
+	  subject: 'Orders from SpicyCOrner!!!',
+	  html: '<p><img src="cid:unique@kreata.ee" style="width:50px;"/><h3>Welcome to the SpicyCorner,</h3>\
+	  <div>&nbsp;&nbsp;'+name+'( '+email+') ordered food worth Rs.'+total+'.</div><br><div>'+message+'</div>',
+	  attachments: [{
+					     filename: 'Logo.png',
+					     path: path.join(__dirname ,'../../','spicy_corner.png'),
+					     cid: 'unique@kreata.ee' 
+					}],
+	 
+	};
+	return mailOptions;
 }	
+
 	
-const paymentMail=(bill,email,total)=>{
+const paymentMail=(bill,name,email,total)=>{
 	console.log("bill");
 	console.log(bill);
 	let message = (
@@ -50,14 +92,14 @@ message += (
    
 
 message +=  '<td><b>Total</b></td><td colspan="2" style="text-align:center"><b>'+total+'</b></td></table>';
-message+="<div>Your Orders are successfully placed and will deliver to you at the right time...Thanks!!!</div>"
+message+="<br><div>&nbsp;&nbsp;Your Orders are successfully placed and will deliver to you at the right time...Thanks!!!</div>"
 
 	var mailOptions = {
 	  from:'mkarthickakmn@gmail.com',
 	  to: email,
 	  subject: 'Thankyou for ordering SpicyCOrner!!!',
-	  html: '<p><img src="cid:unique@kreata.ee" style="width:50px;"/><h3>Welcome to the SpicyCorner</h3>,\
-	  <div>'+message+'</div>',
+	  html: '<p><img src="cid:unique@kreata.ee" style="width:50px;"/><div>Hi '+name+',</div><h3>&nbsp;&nbsp;Welcome to the SpicyCorner,</h3>\
+	  <div>&nbsp;'+message+'</div>',
 	  attachments: [{
 					     filename: 'Logo.png',
 					     path: path.join(__dirname ,'../../','spicy_corner.png'),
@@ -68,8 +110,12 @@ message+="<div>Your Orders are successfully placed and will deliver to you at th
 	return mailOptions;
 }	
 
+
+
+
 module.exports={
 					transporter,
 					 otpmail,
-					 paymentMail
+					 paymentMail,
+					 adminMail
 				};

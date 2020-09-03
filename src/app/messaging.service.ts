@@ -15,7 +15,6 @@ _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
 requestPermission() {
 this.angularFireMessaging.requestToken.subscribe(
 (token) => {
-localStorage.setItem('spicyuserstoken',token);
 console.log(token);
 },
 (err) => {

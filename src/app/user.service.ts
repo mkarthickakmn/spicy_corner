@@ -54,7 +54,6 @@ export class UserService
 		return this.http.post<User>(url+"/login",
 			{
 				user:user,
-				token:	localStorage.getItem('spicyuserstoken')
 			}).
 		pipe(catchError(this.handleError),
 			tap(user=>{
