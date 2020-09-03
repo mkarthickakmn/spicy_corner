@@ -19,11 +19,20 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "allowedCommonJsDependencies" : [
+              "firebase/app", //Warning related packages*
+              "@firebase/auth",
+              "@firebase/database",
+              "@firebase/component",
+              "@firebase/util"
+            ], 
             "assets": [
               "src/favicon.ico",
               "src/assets",
               "src/manifest.webmanifest",
-              "src/manifest.webmanifest"
+              "src/manifest.webmanifest",
+              "src/firebase-messaging-sw.js", // <-- add this
+              "src/manifest.json" // <-- add this
             ],
             "styles": [
               "src/styles.css"

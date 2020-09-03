@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import{HttpClient} from '@angular/common/http';
 import{AdminService} from '../adminservice.service';
-import {PushNotificationService} from '../../PushNotification.service';
 import{AdminFoodService} from '../adminfoodservice.service';
 @Component({
   selector: 'app-orders',
@@ -10,7 +9,7 @@ import{AdminFoodService} from '../adminfoodservice.service';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor(private admin:AdminService,private adminfood:AdminFoodService,private pushService:PushNotificationService) { }
+  constructor(private admin:AdminService,private adminfood:AdminFoodService) { }
   count:number=0;
   foodItems:any;
   ngOnInit(): void {

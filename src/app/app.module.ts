@@ -36,6 +36,12 @@ import{LoaderComponent} from './loader/loader.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { MessagingService } from './messaging.service';
+import { AsyncPipe } from '../../node_modules/@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,11 +77,15 @@ import { environment } from '../environments/environment';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     // ClientFoodModule,
     // AdminModule
   ],
-   // providers:[FilterPipe],
+   providers:[MessagingService,AsyncPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -35,98 +35,17 @@ server.listen(port, () => {
     console.log(`Server is up on port ${port}!`)
 })
 
-
 ////////////Notification//////////////////
-var fakeDatabase=null;
-var notificationPayload=[];
-const PUBLIC_VAPID="BEWIp3Js3csi8YcJhBcpZPnseMSUnTrTWh9WIbtP5yp1gC-XQJWxUGopGw5wIH5yGW59lW7v4CeL7K75FhpGAdI";
-const PRIVATE_VAPID="_XbnZ9jw4XJrO53HXOs-1xOkKUHoZeZQ0s9Wh0wIAzo";
-webpush.setVapidDetails('mailto:mkarthickakmn@gmail.com', PUBLIC_VAPID, PRIVATE_VAPID)
 
-app.post('/subscription', (req, res) => {
-  const subscription = req.body
-  fakeDatabase=subscription;
-  
-})
+var admin = require("firebase-admin");
 
-app.post('/sendNotification', async(req, res) => {
-	var notification=[]
-	var notification_object={name:'',price:''};
+var serviceAccount = require("../pushnotification-10238-firebase-adminsdk-bv109-d65889599c.json");
 
-	try
-	{
-		let payment = await Payment.find({status:'Not delivered'}).sort({createdAt :1}).populate('user_id') 
-		.exec(function(err, payment){
-		    //do stuff
-		     payment.forEach( pay=>{
-		    	notification_object.name=pay.user_id.username;
-		    	notification_object.price=pay.price;
-		    	notification.push(notification_object);
-		    	notification_object={};
-		    })
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://pushnotification-10238.firebaseio.com"
+});
 
-	      	const promises = [];
-			notification.forEach((notification)=>{
-		  	const notificationPayload = {
-			    notification: {
-			      title: 'New Notification',
-			      body: notification.name+'Ordered food for Rs.'+notification.price,
-			      icon: 'assets/icons/icon-512x512.png',
-			    },
-			}
-			promises.push(
-			  webpush.sendNotification(
-			    fakeDatabase,
-			    JSON.stringify(notificationPayload)
-			  )
-			)
-		})
-		Promise.all(promises).then(() => res.sendStatus(200))
-
-		});
-	}
-	catch(e){throw e}
-
-})
-
-async function getNotify()
-{
-	var notification=[]
-	var notification_object={name:'',price:''};
-
-	try
-	{
-		let payment = await Payment.find({status:'Not delivered'}).sort({createdAt :1}).populate('user_id') 
-		.exec(function(err, payment){
-		    //do stuff
-		     payment.forEach( pay=>{
-		    	notification_object.name=pay.user_id.username;
-		    	notification_object.price=pay.price;
-		    	notification.push(notification_object);
-		    	notification_object={};
-		    })
-
-	      	const promises = [];
-			notification.forEach((notification)=>{
-		  	const notificationPayload = {
-			    notification: {
-			      title: 'New Notification',
-			      body: notification.name+' ordered food for Rs.'+notification.price,
-			      icon: 'assets/icons/icon-512x512.png',
-			    },
-			}
-			promises.push(
-			  webpush.sendNotification(
-			    fakeDatabase,
-			    JSON.stringify(notificationPayload)
-			  )
-			)
-		})
-
-		});
-	}
-	catch(e){throw e}
-}
 
 
 app.post('/login',async(req,res)=>{
@@ -138,7 +57,29 @@ app.post('/login',async(req,res)=>{
     else if(user.error=="invalid credentials")
     	res.status(502).send();
     else
-    	res.send([user]);
+    	{
+    		var registrationToken = req.body.token;
+			var payload = {
+			  notification: {
+			    title: "SpicyCOrner",
+			    body: "Have a good food"
+			  }
+			};
+
+			 var options = {
+			  priority: "high",
+			  timeToLive: 60 * 60 *24
+			};
+
+			admin.messaging().sendToDevice(registrationToken, payload, options)
+			  .then(function(response) {
+			    console.log("Successfully sent message:", response);
+			  })
+			  .catch(function(error) {
+			    console.log("Error sending message:", error);
+			  });
+    		res.send([user]);
+    	}
 
 });
 
