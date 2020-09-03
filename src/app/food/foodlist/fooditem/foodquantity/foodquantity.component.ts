@@ -63,13 +63,14 @@ export class FoodquantityComponent implements OnInit {
   submit()
   {
     let order_id;
-     this.datastorage.setNewOrder(this.food,this.quantity,"New Orders").subscribe(
-        responseData=>{
-          order_id=responseData[0]._id;
-          console.log(responseData[0]);
-          this.router.navigate(['/order',order_id]);
-        }
-      );
+      this.datastorage.getOrders().subscribe(data=>{
+           this.datastorage.setNewOrder(this.food,this.quantity,"New Orders").subscribe(
+            responseData=>{
+              order_id=responseData[0]._id;
+              this.router.navigate(['/order',order_id]);
+            }
+          );
+      });
   	
   }
 

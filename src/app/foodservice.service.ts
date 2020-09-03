@@ -14,7 +14,7 @@ export class FoodService implements OnInit {
    timings:FoodTimings[]=this.foodTimings.getTimings();
    foodByType=new EventEmitter<string>();
 
-   private food:Food[]=[];
+   private food:any=[];
     
    ngOnInit()
    {
@@ -25,6 +25,18 @@ export class FoodService implements OnInit {
    setFood(food:Food[])
    {
      this.food=food;
+
+      for(let x in this.food)
+      {
+          
+          const y= this.timings.find((food)=>{
+               if(food.timings_id==this.food[x].timings_id)
+               {          
+                   this.food[x].timings=food;
+                   return this.food[x];
+               }
+          })
+        }
    }
 
  
@@ -113,6 +125,7 @@ export class FoodService implements OnInit {
     getfoodServicesByType(type:string)
     {
       let foodByType=[];
+      console.log(this.food);
       for(let x in this.food)
       {
           if(this.food[x].timings.type==type)
